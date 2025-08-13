@@ -1,33 +1,42 @@
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { generateImageData, ImageData } from './utils/ImageData';
-import Search from './components/Search';
-import ImageGrid from './components/ImageGrid';
-import FullScreenImage from './components/FullScreenImage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import HomeScreen from './screens/HomeScreen';
+import PhotoDetailScreen from './screens/PhotoDetailScreen';
+import FullScreenModal from './screens/FullScreenModal';
+
+import { StackParamList } from './utils/stackParamList';
+
+const Stack = createStackNavigator<StackParamList>();
 
 const App = () => {
-  const allImages = generateImageData();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
-
-  const filteredImages = allImages.filter((img) =>
-    img.id.toString().includes(searchTerm)
-  );
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Search value={searchTerm} onChange={setSearchTerm} />
-      <ImageGrid images={filteredImages} onImagePress={setSelectedImage} />
-      <FullScreenImage image={selectedImage} onClose={() => setSelectedImage(null)} />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Photo Gallery' }}
+        />
+        <Stack.Screen
+          name="PhotoDetail"
+          component={PhotoDetailScreen}
+        />
+        <Stack.Screen
+          name="FullScreenModal"
+          component={FullScreenModal}
+          options={{
+            presentation: "modal",
+            headerTitle: "",
+            headerTintColor: "white",
+            headerStyle: { backgroundColor: "black" },
+            headerShown: false,
+            headerShadowVisible: false
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
 
 export default App;
