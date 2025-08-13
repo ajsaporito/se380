@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, Image, TouchableOpacity, StyleSheet, Dimensions, View } from 'react-native';
-import { ImageData } from '../utils/ImageData';
+import { ImageData } from '../utils/imageData';
 
 const { width } = Dimensions.get('window');
 const IMAGE_SIZE = width / 3 - 4;

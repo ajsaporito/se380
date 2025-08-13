@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { ImageData } from '../utils/ImageData';
+import { ImageData } from '../utils/imageData';
 
 interface Props {
   image: ImageData | null;
